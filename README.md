@@ -198,7 +198,7 @@ Sweeping $\alpha$ from 0 to 1 traces out the full interval price as a function o
 
 ### 3.4 Use Case: Quote Spread from Epistemic Uncertainty
 
-A market maker can quote bid and ask using $C(\alpha = \alpha^*)$ for some chosen confidence level $\alpha^*$. The interval width $\overline{C}(\alpha^*) - \underline{C}(\alpha^*)$ encodes the trader's epistemic uncertainty about $S_0$ directly, in price units, rather than tuning a spread multiplier ad hoc. The width composes naturally with the hedging-cost and inventory-skew terms developed in the companion hedging article: total quoted spread = epistemic spread (from $\alpha$-cut) + hedging cost + residual risk premium + profit margin.
+A market maker can quote bid and ask using $C(\alpha = \alpha^{\star})$ for some chosen confidence level $\alpha^{\star}$. The interval width $\overline{C}(\alpha^{\star}) - \underline{C}(\alpha^{\star})$ encodes the trader's epistemic uncertainty about $S_0$ directly, in price units, rather than tuning a spread multiplier ad hoc. The width composes naturally with the hedging-cost and inventory-skew terms developed in the companion hedging article: total quoted spread = epistemic spread (from $\alpha$-cut) + hedging cost + residual risk premium + profit margin.
 
 The trapezoidal width parameters $\gamma$ and $\beta$ should be calibrated externally rather than fitted: cross-venue spot dispersion, mid-bid spread on the underlying, realized-vs-implied vol gap, or strike-by-strike disagreement in prediction markets are all sensible inputs.
 
