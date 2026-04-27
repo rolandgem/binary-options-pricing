@@ -10,7 +10,7 @@ The notebook [`pricing.ipynb`](pricing.ipynb) implements every formula in this R
 
 1. Vanilla Black-Scholes call pricing and Greeks (reference point)
 2. Binary call pricing, delta, gamma, vega
-3. Worked example for a 24-hour BTC binary call at S = K = \$50,000, $\sigma = 80\%$, $r = 5\%$
+3. Worked example for a 24-hour BTC binary call at $S = K$ = \$50,000, $\sigma = 80\%$, $r = 5\%$
 4. Payoff diagrams contrasting vanilla and binary calls
 5. Binary delta and gamma profiles at $T = 24h, 6h, 1h$
 6. Trapezoidal fuzzy spot membership functions (symmetric, bullish, bearish)
@@ -101,12 +101,24 @@ $$ \mathcal{V}_{\text{binary}} = \frac{\partial C_{\text{binary}}}{\partial \sig
 
 Binary delta peaks at the strike rather than monotonically increasing in spot, and binary gamma flips sign across the strike (positive below, negative above). These properties drive every hedging difficulty discussed in the companion repository.
 
+![Binary vs vanilla call payoff at expiry](img/binary-vs-vanilla-payoff.png)
+
+The contrast in payoff shape is the source of every distinction that follows. The vanilla payoff is a continuous hockey stick; the binary is a step function.
+
+![Binary delta concentrating near strike as expiry approaches](img/binary-delta-by-expiry.png)
+
+Vanilla delta would be a smooth S-curve from 0 to 1. Binary delta peaks at the strike and the peak grows sharper as $T \to 0$.
+
+![Binary gamma flipping sign across the strike](img/binary-gamma-by-expiry.png)
+
+Vanilla gamma is everywhere positive. Binary gamma flips sign across the strike, which is what makes near-expiry delta hedging unstable.
+
 ### 2.3 Worked Example
 
 Consider binary options with the following parameters:
 
-- Spot price S_0 = \$50,000
-- Strike price K = \$50,000
+- Spot price $S_0$ = \$50,000
+- Strike price $K$ = \$50,000
 - Risk-free rate $r = 5\%$ annually
 - Volatility $\sigma = 80\%$ annually
 - Time to expiry $T = 1/365$ (24 hours)
@@ -158,6 +170,8 @@ $$ A(\alpha) = \{s : \mu(s) \geq \alpha\} = [S_a - \gamma(1-\alpha), S_b + \beta
 
 At $\alpha = 1$ only the core remains; at $\alpha = 0$ the full support.
 
+![Three trapezoidal fuzzy spot specifications: symmetric, bullish, bearish](img/trapezoidal-fuzzy-spot.png)
+
 ### 3.2 The $\alpha$-cut Binary Price
 
 The crisp Black-Scholes binary call price is monotone increasing in $S_0$. The $\alpha$-cut binary price is therefore the closed interval
@@ -168,7 +182,7 @@ with $a(\alpha) = S_a - \gamma(1-\alpha)$, $b(\alpha) = S_b + \beta(1-\alpha)$, 
 
 ### 3.3 Numerical Comparison
 
-For the running parameters (K = \$50,000, $\sigma = 80\%$, $T = 1/365$, $r = 5\%$, crisp spot S_0 = \$50,000 giving crisp price $0.4929$), we evaluate three trapezoidal specifications, each with width parameters \gamma = \beta = \$1,000:
+For the running parameters ($K$ = \$50,000, $\sigma = 80\%$, $T = 1/365$, $r = 5\%$, crisp spot $S_0$ = \$50,000 giving crisp price $0.4929$), we evaluate three trapezoidal specifications, each with width parameters $\gamma = \beta$ = \$1,000:
 
 | Specification | Core | $C(\alpha=1)$ | $C(\alpha=0.5)$ | $C(\alpha=0)$ | Crisp |
 |---|---|---|---|---|---|
@@ -176,7 +190,11 @@ For the running parameters (K = \$50,000, $\sigma = 80\%$, $T = 1/365$, $r = 5\%
 | Bullish core | $[50{,}500, 51{,}500]$ | $[0.587, 0.754]$ | $[0.493, 0.821]$ | $[0.399, 0.874]$ | $0.493$ |
 | Bearish core | $[48{,}500, 49{,}500]$ | $[0.228, 0.399]$ | $[0.166, 0.493]$ | $[0.107, 0.587]$ | $0.493$ |
 
-The crisp price is the same in all rows because the trapezoidal shapes are symmetric in $\gamma$ and $\beta$. The intervals widen monotonically as $\alpha$ falls and shift directionally with the core. The companion notebook reproduces these values exactly and plots the full $\alpha$-cut envelope.
+The crisp price is the same in all rows because the trapezoidal shapes are symmetric in $\gamma$ and $\beta$. The intervals widen monotonically as $\alpha$ falls and shift directionally with the core.
+
+![Alpha-cut binary call price envelope across alpha for three trapezoidal specifications](img/alpha-cut-envelope.png)
+
+Sweeping $\alpha$ from 0 to 1 traces out the full interval price as a function of plausibility level. The lower and upper bounds bracket the crisp price (when the trapezoidal is centred on it) or sit asymmetrically around it (for directional views).
 
 ### 3.4 Use Case: Quote Spread from Epistemic Uncertainty
 
