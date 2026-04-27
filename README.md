@@ -10,7 +10,7 @@ The notebook [`pricing.ipynb`](pricing.ipynb) implements every formula in this R
 
 1. Vanilla Black-Scholes call pricing and Greeks (reference point)
 2. Binary call pricing, delta, gamma, vega
-3. Worked example for a 24-hour BTC binary call at $S = K$ = \$50,000, $\sigma = 80\%$, $r = 5\%$
+3. Worked example for a 24-hour BTC binary call at S = K = \$50,000, σ = 80%, r = 5%
 4. Payoff diagrams contrasting vanilla and binary calls
 5. Binary delta and gamma profiles at $T = 24h, 6h, 1h$
 6. Trapezoidal fuzzy spot membership functions (symmetric, bullish, bearish)
