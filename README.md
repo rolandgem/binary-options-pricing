@@ -10,7 +10,7 @@ The notebook [`pricing.ipynb`](pricing.ipynb) implements every formula in this R
 
 1. Vanilla Black-Scholes call pricing and Greeks (reference point)
 2. Binary call pricing, delta, gamma, vega
-3. Worked example for a 24-hour BTC binary call at $S = K = \$50{,}000$, $\sigma = 80\%$, $r = 5\%$
+3. Worked example for a 24-hour BTC binary call at S = K = \$50,000, $\sigma = 80\%$, $r = 5\%$
 4. Payoff diagrams contrasting vanilla and binary calls
 5. Binary delta and gamma profiles at $T = 24h, 6h, 1h$
 6. Trapezoidal fuzzy spot membership functions (symmetric, bullish, bearish)
@@ -28,13 +28,13 @@ The volatility input is a stylized parameter. Override `sigma` in the constants 
 
 ## 1. Introduction
 
-Binary options present a unique challenge for market makers. Unlike traditional options with continuous payoffs, binary options pay a fixed amount ($\$1$) or nothing ($\$0$), creating a discontinuous payoff profile that makes hedging particularly difficult. The fundamental challenge lies in the mismatch between the discontinuous payoff of binary options and the continuous payoffs of available hedging instruments. Binary options have extreme sensitivity (gamma) near the strike price, traditional hedging instruments (spot, vanilla options) have continuous payoffs, this mismatch creates "jump risk" that cannot be perfectly hedged, and market makers must manage this risk while providing liquidity.
+Binary options present a unique challenge for market makers. Unlike traditional options with continuous payoffs, binary options pay a fixed amount (\$1) or nothing (\$0), creating a discontinuous payoff profile that makes hedging particularly difficult. The fundamental challenge lies in the mismatch between the discontinuous payoff of binary options and the continuous payoffs of available hedging instruments. Binary options have extreme sensitivity (gamma) near the strike price, traditional hedging instruments (spot, vanilla options) have continuous payoffs, this mismatch creates "jump risk" that cannot be perfectly hedged, and market makers must manage this risk while providing liquidity.
 
-For this analysis, we consider 24-hour binary options on BTC price movements where the strike price equals the previous day's closing price. The payoff structure is $\$1$ if BTC price exceeds the strike at expiry, $\$0$ otherwise.
+For this analysis, we consider 24-hour binary options on BTC price movements where the strike price equals the previous day's closing price. The payoff structure is \$1 if BTC price exceeds the strike at expiry, \$0 otherwise.
 
 ### 1.1 Market and Regulatory Context
 
-Binary options have a contested regulatory history. The European Securities and Markets Authority prohibited the marketing, distribution and sale of binary options to retail investors via Decision (EU) 2018/795 and successive renewals; the UK Financial Conduct Authority issued a permanent ban for retail in PS19/11 (2019); the U.S. CFTC restricts binary trading to designated contract markets (Nadex, Kalshi, and a small number of venues offering event contracts). The treatment in this paper is therefore aimed at three settings where binary-style payoffs remain legitimate: (i) institutional OTC books, (ii) regulated event-contract exchanges (typically with strikes binned to fixed dollar increments), and (iii) the increasingly mature on-chain prediction-market venues such as Polymarket and Kalshi, where contracts pay $\$1$ or $\$0$ on the resolution of an event and are economically equivalent to short-dated binary options on a market-determined reference price.
+Binary options have a contested regulatory history. The European Securities and Markets Authority prohibited the marketing, distribution and sale of binary options to retail investors via Decision (EU) 2018/795 and successive renewals; the UK Financial Conduct Authority issued a permanent ban for retail in PS19/11 (2019); the U.S. CFTC restricts binary trading to designated contract markets (Nadex, Kalshi, and a small number of venues offering event contracts). The treatment in this paper is therefore aimed at three settings where binary-style payoffs remain legitimate: (i) institutional OTC books, (ii) regulated event-contract exchanges (typically with strikes binned to fixed dollar increments), and (iii) the increasingly mature on-chain prediction-market venues such as Polymarket and Kalshi, where contracts pay \$1 or \$0 on the resolution of an event and are economically equivalent to short-dated binary options on a market-determined reference price.
 
 Bitcoin's realized and implied volatility regimes vary substantially. The 80% annualized volatility used throughout this paper is a stylized parameter chosen to keep numerics simple; it sits roughly between the 60%-65% that prevailed in the 2025 lower-vol regime and the 100%+ readings from earlier cycles (DVOL, BVIV). Readers should treat $\sigma$ as a tunable input, not a calibration target.
 
@@ -105,8 +105,8 @@ Binary delta peaks at the strike rather than monotonically increasing in spot, a
 
 Consider binary options with the following parameters:
 
-- Spot price $S_0 = \$50{,}000$
-- Strike price $K = \$50{,}000$
+- Spot price S_0 = \$50,000
+- Strike price K = \$50,000
 - Risk-free rate $r = 5\%$ annually
 - Volatility $\sigma = 80\%$ annually
 - Time to expiry $T = 1/365$ (24 hours)
@@ -123,12 +123,12 @@ Binary delta: $\Delta_{\text{binary}} = e^{-0.05/365} \phi(-0.0177) / (50000 \cd
 
 Binary gamma: $\Gamma_{\text{binary}} = -e^{-0.05/365} \phi(-0.0177) \cdot 0.0242 / (50000^2 \cdot 0.8^2 \cdot 1/365) = -2.20 \times 10^{-9}$ per dollar squared
 
-For a position of 10,000 binary options (each with $\$1$ maximum payout):
+For a position of 10,000 binary options (each with \$1 maximum payout):
 
-- Total position value: $10{,}000 \times \$0.4929 = \$4{,}929$
-- Total delta: $10{,}000 \times 1.90 \times 10^{-4} = 1.90$ (dimensionless), corresponding to a $\$1$ P&L per $\$1$ spot move per unit of delta
+- Total position value: 10,000 × \$0.4929 = \$4,929
+- Total delta: $10{,}000 \times 1.90 \times 10^{-4} = 1.90$ (dimensionless), corresponding to a \$1 P&L per \$1 spot move per unit of delta
 - BTC-equivalent hedge: short the binary, then buy $\Delta_{\text{total}} = 1.90$ BTC
-- Capital deployed for the hedge: $1.90 \times \$50{,}000 = \$95{,}120$
+- Capital deployed for the hedge: 1.90 × \$50,000 = \$95,120
 
 These numerical values are reproduced exactly by the companion notebook.
 
@@ -168,7 +168,7 @@ with $a(\alpha) = S_a - \gamma(1-\alpha)$, $b(\alpha) = S_b + \beta(1-\alpha)$, 
 
 ### 3.3 Numerical Comparison
 
-For the running parameters ($K = \$50{,}000$, $\sigma = 80\%$, $T = 1/365$, $r = 5\%$, crisp spot $S_0 = \$50{,}000$ giving crisp price $0.4929$), we evaluate three trapezoidal specifications, each with width parameters $\gamma = \beta = \$1{,}000$:
+For the running parameters (K = \$50,000, $\sigma = 80\%$, $T = 1/365$, $r = 5\%$, crisp spot S_0 = \$50,000 giving crisp price $0.4929$), we evaluate three trapezoidal specifications, each with width parameters \gamma = \beta = \$1,000:
 
 | Specification | Core | $C(\alpha=1)$ | $C(\alpha=0.5)$ | $C(\alpha=0)$ | Crisp |
 |---|---|---|---|---|---|
@@ -202,6 +202,3 @@ The trapezoidal width parameters $\gamma$ and $\beta$ should be calibrated exter
 - Financial Conduct Authority (2019). *Policy Statement PS19/11: Product intervention measures for retail binary options*. London: FCA.
 - U.S. Commodity Futures Trading Commission. Designated Contract Markets (DCMs). [cftc.gov/IndustryOversight/TradingOrganizations/DCMs](https://www.cftc.gov/IndustryOversight/TradingOrganizations/DCMs).
 
-## License
-
-MIT.
