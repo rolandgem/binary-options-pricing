@@ -182,7 +182,7 @@ with $a(\alpha) = S_a - \gamma(1-\alpha)$, $b(\alpha) = S_b + \beta(1-\alpha)$, 
 
 ### 3.3 Numerical Comparison
 
-For the running parameters ($K$ = \$50,000, $\sigma = 80\%$, $T = 1/365$, $r = 5\%$, crisp spot $S_0$ = \$50,000 giving crisp price $0.4929$), we evaluate three trapezoidal specifications, each with width parameters $\gamma = \beta$ = \$1,000:
+For the running parameters (K = \$50,000, σ = 80%, T = 1/365, r = 5%, crisp spot S₀ = \$50,000 giving crisp price 0.4929), we evaluate three trapezoidal specifications, each with width parameters γ = β = \$1,000:
 
 | Specification | Core | $C(\alpha=1)$ | $C(\alpha=0.5)$ | $C(\alpha=0)$ | Crisp |
 |---|---|---|---|---|---|
